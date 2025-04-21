@@ -45,7 +45,10 @@ wss.on("connection", function (ws, req) {
         ws.send(JSON.stringify({ Status: "Success" }));
       } else if (parsedData.Action === "Unicorn") {
         ws.send(JSON.stringify({ Status: "Error" }));
-      }
+      } else if (parsedData.Action === "Disconnect") {
+      ws.send(JSON.stringify({ Status: "Disconnected by Server" }));
+      ws.close();  // ← 主動斷開連線
+    }
     } catch (err) {
       console.error("JSON 解析失敗：", err);
       ws.send("資料格式錯誤，請傳送正確的 JSON 字串");
