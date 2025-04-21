@@ -43,7 +43,9 @@ wss.on("connection", function (ws, req) {
       // { "type": "chat", "message": "Hello" }
       if (parsedData.Action === "Test") {
         ws.send(JSON.stringify({ Status: "Success" }));
-      }  
+      } else if (parsedData.Action === "Unicorn") {
+        ws.send(JSON.stringify({ Status: "Error" }));
+      }
     } catch (err) {
       console.error("JSON 解析失敗：", err);
       ws.send("資料格式錯誤，請傳送正確的 JSON 字串");
