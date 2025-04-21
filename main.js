@@ -34,8 +34,24 @@ wss.on("connection", function (ws, req) {
       console.log('keepAlive');
       return;
     }
-    ws.send(stringifiedData);
-    broadcast(ws, stringifiedData, false);
+    let parsedData;
+    try {
+      parsedData = JSON.parse(stringifiedData); // 將字串轉為 JSON 物件
+      console.log("收到資料：", parsedData);
+  
+      // 假設你傳過來的 JSON 長這樣：
+      // { "type": "chat", "message": "Hello" }
+      if (parsedData.Action === "Test") {
+        ws.send(JSON.stringify({ Status: "Success" }));
+      }else if (parsedData.Action === "Unicorn") {
+        ws.send(JSON.stringify({ Status: "Error" }));
+  
+    } catch (err) {
+      console.error("JSON 解析失敗：", err);
+      ws.send("資料格式錯誤，請傳送正確的 JSON 字串");
+    }
+    //ws.send(stringifiedData);
+    //broadcast(ws, stringifiedData, false);
   });
 
   ws.on("close", (data) => {
