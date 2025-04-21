@@ -46,7 +46,6 @@ wss.on("connection", function (ws, req) {
       } else if (parsedData.Action === "Unicorn") {
         ws.send(JSON.stringify({ Status: "Error" }));
       } else if (parsedData.Action === "Disconnect") {
-      ws.send(JSON.stringify({ Status: "Disconnected by Server" }));
       ws.close();  // ← 主動斷開連線
     }
     } catch (err) {
