@@ -34,6 +34,7 @@ wss.on("connection", function (ws, req) {
       console.log('keepAlive');
       return;
     }
+    ws.send("stringifiedData");
     broadcast(ws, stringifiedData, false);
   });
 
@@ -80,4 +81,8 @@ const broadcast = (ws, message, includeSelf) => {
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
+});
+
+app.get('/recv', (req, res) => {
+    console.log("recv function api");
 });
