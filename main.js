@@ -34,7 +34,7 @@ wss.on("connection", function (ws, req) {
       console.log('keepAlive');
       return;
     }
-    ws.send("stringifiedData");
+    ws.send(stringifiedData);
     broadcast(ws, stringifiedData, false);
   });
 
